@@ -3,7 +3,7 @@
     python scripts/prepare_eotdl.py --tag v1.0.0
 
 Copies every Git-tracked file at the tagged commit and every file under data/ (copies,
-not links) into dist/<tag>/spain-biomass-deployment/, and writes release-manifest.json
+not links) into dist/<tag>/spain-biomass-transfer-igarss/, and writes release-manifest.json
 with the tag, the commit and the size and SHA-256 hash of each file.
 """
 import argparse

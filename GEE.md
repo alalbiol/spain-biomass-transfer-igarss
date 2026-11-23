@@ -57,7 +57,7 @@ The ten models and their inference code are in [sentinel-biomass-inference](http
 
 ```bash
 cd sentinel-biomass-inference
-python inference.py --model efficientnet_late --input-dir ../spain-biomass-deployment/downloads/spain_best \
+python inference.py --model efficientnet_late --input-dir ../spain-biomass-transfer-igarss/downloads/spain_best \
   --chip-id ES_2021_40p7800_W4p0495 --output outputs/ES_2021_40p7800_W4p0495.tif --device cpu
 ```
 

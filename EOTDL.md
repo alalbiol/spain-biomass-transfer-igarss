@@ -1,6 +1,6 @@
 # Publishing on EOTDL
 
-This is an EOTDL **dataset** entry, `spain-biomass-deployment`: the tagged repository plus `data/` (about 5 GB, about 2,200 files). The root README carries the YAML metadata that EOTDL reads. The evaluated models themselves are a separate EOTDL model entry, [sentinel-biomass-inference](https://www.eotdl.com/models/sentinel-biomass-inference).
+This is an EOTDL **dataset** entry, `spain-biomass-transfer-igarss`: the tagged repository plus `data/` (about 5 GB, about 2,200 files). The root README carries the YAML metadata that EOTDL reads. The evaluated models themselves are a separate EOTDL model entry, [sentinel-biomass-inference](https://www.eotdl.com/models/sentinel-biomass-inference).
 
 ## Build and check the snapshot
 
@@ -8,7 +8,7 @@ On a clean checkout at the release tag, with `data/` in place (maintainers rebui
 
 ```bash
 python scripts/prepare_eotdl.py --tag v1.0.0
-cd dist/v1.0.0/spain-biomass-deployment
+cd dist/v1.0.0/spain-biomass-transfer-igarss
 python scripts/reproduce.py
 python scripts/check_prediction_maps.py
 ```
@@ -21,7 +21,7 @@ Use the EOTDL client in its own Python 3.12+ environment:
 
 ```bash
 eotdl auth login
-eotdl datasets ingest -p ./dist/v1.0.0/spain-biomass-deployment
+eotdl datasets ingest -p ./dist/v1.0.0/spain-biomass-transfer-igarss
 ```
 
 EOTDL assigns the version number on ingestion; it is not derived from the Git tag. Afterwards:

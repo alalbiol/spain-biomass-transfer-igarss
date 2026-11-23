@@ -1,12 +1,12 @@
 ---
-name: spain-biomass-deployment
+name: spain-biomass-transfer-igarss
 authors:
   - Alberto Albiol
   - Miquel Obrador-Reina
   - Juan B. Pedro
   - Albert Fernández
 license: CC-BY-4.0
-source: https://github.com/alalbiol/spain-biomass-deployment
+source: https://github.com/alalbiol/spain-biomass-transfer-igarss
 ---
 
 # Deploying Sentinel-1/2 biomass models in Spain
@@ -23,7 +23,7 @@ This repository accompanies the manuscript *Deploying Sentinel-1/2 Biomass Model
 | | Where |
 |---|---|
 | Code, documentation, reference results | this GitHub repository |
-| **Data** (5 GB): 10-m prediction maps, CCI grids, plot table with coordinates, predictions of every run, adapted weights | **[EOTDL dataset `spain-biomass-deployment`](https://www.eotdl.com/datasets/spain-biomass-deployment)**, which also contains this repository |
+| **Data** (5 GB): 10-m prediction maps, CCI grids, plot table with coordinates, predictions of every run, adapted weights | **[EOTDL dataset `spain-biomass-transfer-igarss`](https://www.eotdl.com/datasets/spain-biomass-transfer-igarss)**, which also contains this repository |
 | The ten models, with inference code and example patches | [sentinel-biomass-inference](https://github.com/alalbiol/sentinel-biomass-inference) ([EOTDL model](https://www.eotdl.com/models/sentinel-biomass-inference)) |
 
 ## The study at a glance
@@ -49,7 +49,7 @@ Download the snapshot with the [EOTDL client](https://www.eotdl.com/docs/getting
 
 ```bash
 eotdl auth login
-eotdl datasets get spain-biomass-deployment --path ./downloads
+eotdl datasets get spain-biomass-transfer-igarss --path ./downloads
 ```
 
 Then, with Python 3.11, inside the downloaded folder (the one containing `release-manifest.json`):
