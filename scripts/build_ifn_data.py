@@ -2,9 +2,8 @@
 
 Readers do not need this script; they download data/ from EOTDL. It records how the
 released tables were derived from the original AI4DIS experiment folder, so it reads
-the authors' local paths. Plot coordinates are not copied. The only use the analysis
-made of them, the cross-fold neighbour sensitivity, is precomputed here as a flag.
-Weights are converted from PyTorch state dicts to safetensors without changing values.
+the authors' local paths. Plot coordinates (IFN4 UTM x/y with zone, and lon/lat) are kept;
+they are public in the MITECO databases. Weights are converted from PyTorch state dicts to safetensors without changing values.
 """
 import argparse
 import hashlib
@@ -12,9 +11,7 @@ import json
 import shutil
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
-from scipy.spatial import cKDTree
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = Path('/media/HD/Data/agb_spain_ifn')
@@ -39,8 +36,6 @@ SEEDED = [
     'efficientnet_early_scratch_imagenet_frac0.25_enc1', 'efficientnet_early_scratch_imagenet_frac0.1_enc1',
 ]
 WEIGHT_RUNS = ['efficientnet_early_full', 'efficientnet_early_head']
-COORDINATES = ['x', 'y', 'huso', 'lon', 'lat']
-CONTEXT_RADIUS_M = 1120 * np.sqrt(2)  # half-diagonal envelope of a 112-px (1.12 km) input
 
 
 def sha256(path):
@@ -57,20 +52,7 @@ def main():
 
     plots = pd.read_csv(SOURCE / 'plots.csv', dtype={'province_code': str})
     assert plots.chip_id.is_unique and len(plots) == 6117
-    folds = pd.read_csv(SOURCE / 'finetune/efficientnet_early_full/oof.csv').set_index('chip_id').fold
-    plots['fold'] = plots.chip_id.map(folds)
-    assert plots.fold.notna().all()
-    # Same computation as the original audit (audit_ifn_adaptation.py), done before coordinates are dropped.
-    xy = np.c_[np.deg2rad(plots.lon) * 6371000 * np.cos(np.deg2rad(plots.lat.mean())), np.deg2rad(plots.lat) * 6371000]
-    pairs = cKDTree(xy).query_pairs(CONTEXT_RADIUS_M, output_type='ndarray')
-    fold = plots.fold.to_numpy()
-    cross = pairs[fold[pairs[:, 0]] != fold[pairs[:, 1]]]
-    plots['cross_fold_neighbour'] = False
-    plots.loc[plots.index[np.unique(cross.ravel())], 'cross_fold_neighbour'] = True
-    context = {'radius_m': float(CONTEXT_RADIUS_M), 'cross_fold_pairs': int(len(cross)),
-               'flagged_plots': int(plots.cross_fold_neighbour.sum()),
-               'duplicate_coordinates': int(plots.duplicated(['lon', 'lat']).sum())}
-    plots.drop(columns=COORDINATES + ['fold']).to_csv(args.output / 'plots.csv', index=False)
+    shutil.copyfile(SOURCE / 'plots.csv', args.output / 'plots.csv')
     sources['plots.csv'] = sha256(SOURCE / 'plots.csv')
 
     (args.output / 'zero_shot').mkdir()
@@ -101,10 +83,9 @@ def main():
                           metadata={'source': f'{run}/fold{k}.pt', 'source_sha256': sha256(src)})
                 sources[f'finetune/{run}/fold{k}.pt'] = sha256(src)
 
-    record = {'source_dir': str(SOURCE), 'source_sha256': sources, 'context_sensitivity': context,
-              'removed_columns': COORDINATES, 'runs': names, 'weights': [] if args.skip_weights else WEIGHT_RUNS}
+    record = {'source_dir': str(SOURCE), 'source_sha256': sources, 'runs': names, 'weights': [] if args.skip_weights else WEIGHT_RUNS}
     (args.output / 'build_record.json').write_text(json.dumps(record, indent=1) + '\n')
-    print(f'Wrote {args.output}: {len(names)} runs, context flag on {context["flagged_plots"]} plots')
+    print(f'Wrote {args.output}: {len(names)} runs')
 
 
 if __name__ == '__main__':

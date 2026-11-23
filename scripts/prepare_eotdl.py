@@ -15,7 +15,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REQUIRED_DATA = ['cci/build_record.json', 'ifn/build_record.json']
+REQUIRED_DATA = ['cci/build_record.json', 'ifn/build_record.json', 'cci/spain/predictions_10m/best_c20', 'cci/spain/example_inputs/best']
 
 
 def git(*args):
@@ -46,7 +46,7 @@ def main():
     name = re.search(r'^name: ([a-z0-9-]{3,45})$', readme.split('---', 2)[1], re.M)[1]
     if 'license: CC-BY-4.0' not in readme.split('---', 2)[1]:
         raise SystemExit('README metadata must declare the CC-BY-4.0 dataset licence.')
-    missing = [p for p in REQUIRED_DATA if not (args.data / p).is_file()]
+    missing = [p for p in REQUIRED_DATA if not (args.data / p).exists()]
     if missing:
         raise SystemExit(f'data/ is incomplete: missing {missing}')
 

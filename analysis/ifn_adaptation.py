@@ -6,6 +6,7 @@ import json
 
 import numpy as np
 import pandas as pd
+from scipy.spatial import cKDTree
 
 from common import IFN, OUT, metrics, read
 
@@ -60,12 +61,18 @@ def main():
         float(metrics(t.agb_mg_ha.to_numpy(), t.efficientnet_early.to_numpy())['rmse']
               - metrics(t.agb_mg_ha.to_numpy(), t.full.to_numpy())['rmse'])
         for p in d.province_code.unique() for t in [d[d.province_code != p]]]
-    # Plots whose input context may overlap a plot in another fold (flag computed before
-    # coordinates were removed; see scripts/build_ifn_data.py).
-    result['context_separated_sensitivity'] = score(d[~d.cross_fold_neighbour])
+    # Cross-province context overlap: drop plots within the half-diagonal of a 112-px (1.12 km)
+    # input of a plot in another fold (a conservative circular envelope around the square input).
+    xy = np.c_[np.deg2rad(d.lon) * 6371000 * np.cos(np.deg2rad(d.lat.mean())), np.deg2rad(d.lat) * 6371000]
+    pairs = cKDTree(xy).query_pairs(1120 * np.sqrt(2), output_type='ndarray')
+    fold = d.fold.to_numpy()
+    cross = pairs[fold[pairs[:, 0]] != fold[pairs[:, 1]]]
+    result['cross_fold_nearby_pairs_context_envelope'] = int(len(cross))
+    result['context_separated_sensitivity'] = score(d.drop(index=d.index[np.unique(cross.ravel())]))
     cci = read(IFN / 'cci_at_plots.csv')
     historical = d.merge(cci[['chip_id', 'cci_agb']], on='chip_id', validate='one_to_one')
     result['cci_available_cohort'] = score(historical[historical.cci_agb.notna()])
+    result['duplicate_coordinates'] = int(d.duplicated(['lon', 'lat']).sum())
 
     OUT.mkdir(exist_ok=True)
     (OUT / 'ifn_adaptation.json').write_text(json.dumps(result, indent=2) + '\n')

@@ -1,0 +1,7 @@
+# README figures (scripts/make_readme_figures.py)
+matplotlib==3.10.8
+geopandas==1.1.3
+shapely==2.1.2
+rasterio==1.4.4
+pandas==2.3.3
+numpy==2.4.3

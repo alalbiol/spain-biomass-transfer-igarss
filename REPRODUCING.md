@@ -48,12 +48,16 @@
 | 25% and 10% mean RMSE; eight-epoch mean 41.55 (41.38–41.79); Fig. 2a; seed ranges (4.8, 1.5) | `ifn_pretraining.json` → `seeds.summary` (`rmse_mean`, `rmse_min`, `rmse_max`) |
 | ImageNet encoder at a tenfold lower rate (47.33) | `ifn_pretraining.json` → `fractions["1.0"].efficientnet_early_scratch_imagenet` |
 | Error by biomass class (573 plots > 150 Mg/ha: bias −91.9 → −70.8, RMSE 108.9 → 90.6; 1535 plots ≤ 25: 18.4 → 20.8); Fig. 2b | `ifn_baselines.json` → `by_biomass_class`, methods `original` and `full` |
-| Leave-one-province-out and context-separated checks | `ifn_adaptation.json` → `leave_one_province_out_gain`, `context_separated_sensitivity` |
+| Leave-one-province-out and context-separated checks (69 cross-fold plot pairs within 1.58 km) | `ifn_adaptation.json` → `leave_one_province_out_gain`, `cross_fold_nearby_pairs_context_envelope`, `context_separated_sensitivity` |
 
 ## Notes on the analyses
 
 - **Bootstrap.** CCI intervals resample chips (2000 draws), keeping each chip's blocks together. Inventory intervals resample the 14 provinces (2000 draws) with the saved out-of-fold predictions fixed. Seeds are fixed in each script. The original within-mode CCI intervals used 200 draws; `python analysis/cci_recipes.py --legacy-200` reproduces that run exactly. Both settings give the same conclusion: all four within-mode changes exclude zero.
 - **Exactness.** The analyses are ports of the original scripts (in `pipeline/`), reading the packed data instead of the original folders. Their outputs equal the original results files exactly. The only exception is the bootstrap draws in `cci_recipes.py`, which use per-chip sums and differ from the original concatenation by less than 1e-13.
+
+## The 10-m prediction maps
+
+The analyses read the 100-m blocks. `python scripts/check_prediction_maps.py` (a few minutes) pools every 10-m map in `data/cci/*/predictions_10m/` and confirms that it equals the stored blocks exactly, so the maps are the ones that were scored. To recompute a map from imagery, download the chip ([GEE.md](GEE.md)) and run the model with sentinel-biomass-inference; on the original inputs in `data/cci/spain/example_inputs/` this agrees with the stored maps within 0.07 Mg/ha (CPU against the original GPU run).
 
 ## Table I: native 10-m benchmark (needs GPU inference)
 

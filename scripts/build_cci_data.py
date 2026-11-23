@@ -13,6 +13,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import rasterio
 from skimage import io
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +27,18 @@ NODATA = -9999
 
 def pool(pred):
     return pred[:250, :250].reshape(25, 10, 25, 10).mean(axis=(1, 3))
+
+
+def add_origin(meta, image_dir):
+    """Upper-left corner (EPSG:3035, metres) of each chip's 256 x 256 grid, read from its S1 GeoTIFF.
+    With these, the Earth Engine download requests exactly the original grid."""
+    left, top = [], []
+    for c in meta.chip_id:
+        with rasterio.open(image_dir / f'{c}_S1_00.tif') as s:
+            assert abs(s.transform.a - 10) < 1e-6 and abs(s.transform.e + 10) < 1e-6 and s.shape == (256, 256)
+            left.append(s.transform.c)
+            top.append(s.transform.f)
+    return meta.assign(left_3035=left, top_3035=top)
 
 
 def pack_predictions(pred_root, chips, out):
@@ -59,7 +72,7 @@ def main():
     meta = pd.read_csv(SPAIN / 'validation_bm/metadata_complete.csv')
     assert meta.chip_id.equals(pd.read_csv(SPAIN / 'validation/metadata.csv').chip_id) and len(meta) == 500
     chips = meta.chip_id.tolist()
-    meta.to_csv(out / 'spain/chips.csv', index=False)
+    add_origin(meta, SPAIN / 'validation').to_csv(out / 'spain/chips.csv', index=False)
     pack_cci(SPAIN / 'cci_100m', chips, out / 'spain/cci_100m.npz')
     for name, src in [('median', 'zero_shot'), ('best', 'zero_shot_bm'), ('best_c20', 'zero_shot_bm_c20')]:
         pack_predictions(SPAIN / src / 'preds', chips, out / f'spain/blocks_{name}.npz')
@@ -68,7 +81,7 @@ def main():
     # c20 variant dropped months whose chosen scene exceeded 20% cloud probability; the
     # flag is read from the c20 folder itself rather than recomputed.
     log = pd.read_csv(SPAIN / 'validation_bm/best_scene_log.csv')
-    months = log.groupby(['chip_id', 'month'], sort=False).tail(1)[['chip_id', 'month', 'n_scenes', 'chosen_cld']]
+    months = log.groupby(['chip_id', 'month'], sort=False).tail(1)[['chip_id', 'month', 'n_scenes', 'chosen_cld', 'scene']]
     months = months[months.chip_id.isin(chips)].sort_values(['chip_id', 'month']).reset_index(drop=True)
     assert len(months) == 12 * len(chips)
     c20 = SPAIN / 'validation_bm_c20'
@@ -78,10 +91,15 @@ def main():
     # Finnish CCI control: 188 chips after the 30-valid-block rule is applied in analysis.
     fmeta = pd.read_csv(FINLAND / 'metadata_complete.csv')
     fchips = fmeta.chip_id.tolist()
-    fmeta.to_csv(out / 'finland_control/chips.csv', index=False)
+    add_origin(fmeta, FINLAND / 'validation').to_csv(out / 'finland_control/chips.csv', index=False)
     pack_cci(FINLAND / 'cci_100m', fchips, out / 'finland_control/cci_100m.npz')
     for name, src in [('median', 'zero_shot'), ('best', 'zero_shot_bm')]:
         pack_predictions(FINLAND / src / 'preds', fchips, out / f'finland_control/blocks_{name}.npz')
+    flog = pd.read_csv(FINLAND / 'validation_bm/best_scene_log.csv')
+    fmonths = flog.groupby(['chip_id', 'month'], sort=False).tail(1)[['chip_id', 'month', 'n_scenes', 'chosen_cld', 'scene']]
+    fmonths = fmonths[fmonths.chip_id.isin(fchips)].sort_values(['chip_id', 'month']).reset_index(drop=True)
+    assert len(fmonths) == 12 * len(fchips) and (fmonths.n_scenes >= 0).all()
+    fmonths.to_csv(out / 'finland_control/best_scene_months.csv', index=False)
 
     # BioMassters test set pooled to 100 m against the pooled lidar labels (saved as float32).
     bchips = sorted(p.stem for p in (BIOMASSTERS / '_ground_truth_pooled').glob('*.npy'))

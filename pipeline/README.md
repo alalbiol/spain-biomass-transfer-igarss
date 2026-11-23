@@ -1,6 +1,6 @@
 # Original pipeline (as used)
 
-These scripts produced the data in `data/`. They are copied from the AI4DIS project as they were run, and they were **not re-run for this release**. They need resources that the release does not provide: Google Earth Engine access, the BioMassters checkpoints and training code, the IFN4 Access databases, about 60 GB of exported imagery, and a GPU. You do not need them to reproduce the reported numbers; `scripts/reproduce.py` starts from their saved outputs.
+These scripts produced the data in `data/`. They are copied from the AI4DIS project as they were run, and they were **not re-run for this release**. They need resources that the release does not provide: Google Earth Engine access, the BioMassters checkpoints and training code, the IFN4 Access databases, about 60 GB of exported imagery, and a GPU. You do not need them to reproduce the reported numbers; `scripts/reproduce.py` starts from their saved outputs. To download the imagery again, use `scripts/download_gee.py` ([GEE.md](../GEE.md)), which ports the Earth Engine image definitions of these scripts without their local paths.
 
 The only changes from the original files are these: Earth Engine is initialized with the project in the `EE_PROJECT` environment variable instead of a hard-coded project, and `import os` is added where needed. Paths still point to the authors' machine (`/media/HD/...`, `/home/...`) and must be edited for another setup.
 

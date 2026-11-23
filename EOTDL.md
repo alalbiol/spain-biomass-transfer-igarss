@@ -1,15 +1,16 @@
 # Publishing on EOTDL
 
-This is an EOTDL **dataset** entry, `spain-biomass-deployment`: the tagged repository plus `data/` (about 1.3 GB). The root README carries the YAML metadata that EOTDL reads. The evaluated models themselves are a separate EOTDL model entry, [sentinel-biomass-inference](https://www.eotdl.com/models/sentinel-biomass-inference).
+This is an EOTDL **dataset** entry, `spain-biomass-deployment`: the tagged repository plus `data/` (about 5 GB, about 2,200 files). The root README carries the YAML metadata that EOTDL reads. The evaluated models themselves are a separate EOTDL model entry, [sentinel-biomass-inference](https://www.eotdl.com/models/sentinel-biomass-inference).
 
 ## Build and check the snapshot
 
-On a clean checkout at the release tag, with `data/` in place (maintainers rebuild it with `scripts/build_ifn_data.py` and `scripts/build_cci_data.py`):
+On a clean checkout at the release tag, with `data/` in place (maintainers rebuild it with `scripts/build_ifn_data.py`, `build_cci_data.py`, `build_prediction_maps.py` and `build_example_inputs.py`, in that order):
 
 ```bash
 python scripts/prepare_eotdl.py --tag v1.0.0
 cd dist/v1.0.0/spain-biomass-deployment
 python scripts/reproduce.py
+python scripts/check_prediction_maps.py
 ```
 
 The builder refuses uncommitted changes, a HEAD that is not the tag, and an existing output folder. It copies files (no links) and writes `release-manifest.json` with the commit and a SHA-256 hash per file. Running the reproduction inside the snapshot creates `outputs/`. **Delete `outputs/` (or rebuild into a fresh folder) before uploading**, so only the manifest-listed files are ingested.
