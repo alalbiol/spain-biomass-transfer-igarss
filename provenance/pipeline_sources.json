@@ -1,0 +1,125 @@
+{
+ "cci": {
+  "repository": "AI4DIS (private)",
+  "commit": "9503dcf0458525b65d8cb52645843f199bece2d5",
+  "files": {
+   "compare_composites.py": {
+    "original": "use_case_1_spain/compare_composites.py",
+    "original_sha256": "04f56bd589c1efd10f9a6be001f4d387e53f53902770ec1c07107cb82e78f2bd",
+    "copy_sha256": "04f56bd589c1efd10f9a6be001f4d387e53f53902770ec1c07107cb82e78f2bd"
+   },
+   "evaluate_zero_shot_blocks.py": {
+    "original": "use_case_1_spain/evaluate_zero_shot_blocks.py",
+    "original_sha256": "5c08ce4de081870727e6c329f2cae2019d1eaa631dd881b816dbd6179392b912",
+    "copy_sha256": "5c08ce4de081870727e6c329f2cae2019d1eaa631dd881b816dbd6179392b912"
+   },
+   "export_bm_style_chips.py": {
+    "original": "use_case_1_spain/export_bm_style_chips.py",
+    "original_sha256": "3dc6fc8957a00eb413b18abdf853bed64f17fa59c6ee68f009666267580480d2",
+    "copy_sha256": "584ea8760de3ccf02e4a1ae1ff532d241981716009e16a96fd9c0c548f89e659"
+   },
+   "export_validation_set.py": {
+    "original": "use_case_1_spain/export_validation_set.py",
+    "original_sha256": "af517c2cd9927a0fddcd0982b19f998fad0bbcc871a8a5d4767356eb65f14d21",
+    "copy_sha256": "af517c2cd9927a0fddcd0982b19f998fad0bbcc871a8a5d4767356eb65f14d21"
+   },
+   "fetch_cci_100m.py": {
+    "original": "use_case_1_spain/fetch_cci_100m.py",
+    "original_sha256": "888997352e4a45842e689a0566f0ffc36e4154dafc0036d9e1d9fdeb29458103",
+    "copy_sha256": "a228c64d3a22820c6dd430c92682f9de91ad06bca016983328734a3ad486887b"
+   },
+   "run_bm_full_pipeline.sh": {
+    "original": "use_case_1_spain/run_bm_full_pipeline.sh",
+    "original_sha256": "8ccd38291626708f87a9e43a493448ab4a705a357eefc71bcece0226e4a9c24b",
+    "copy_sha256": "8ccd38291626708f87a9e43a493448ab4a705a357eefc71bcece0226e4a9c24b"
+   },
+   "run_finland_benchmark.sh": {
+    "original": "use_case_1/run_finland_benchmark.sh",
+    "original_sha256": "fa217c9534a71c2f2a5d675cd50de0a0e8ad6f7259a0845a9fc5f614f57aa21c",
+    "copy_sha256": "fa217c9534a71c2f2a5d675cd50de0a0e8ad6f7259a0845a9fc5f614f57aa21c"
+   },
+   "run_finland_control.sh": {
+    "original": "use_case_1_spain/run_finland_control.sh",
+    "original_sha256": "a1886521b0b68cf7584b536a731bac974ebd5ac6e1bc01b477cd66461d64e9c8",
+    "copy_sha256": "a1886521b0b68cf7584b536a731bac974ebd5ac6e1bc01b477cd66461d64e9c8"
+   },
+   "run_finland_pooled_benchmark.py": {
+    "original": "use_case_1_spain/run_finland_pooled_benchmark.py",
+    "original_sha256": "91628e5b016d286e5ce296c1c0e2c7aad2851f3feba38a28266004a03e534938",
+    "copy_sha256": "91628e5b016d286e5ce296c1c0e2c7aad2851f3feba38a28266004a03e534938"
+   },
+   "run_zero_shot.py": {
+    "original": "use_case_1_spain/run_zero_shot.py",
+    "original_sha256": "c650e7df417aae63c3e41543e0d4569b461d3435c4a9e47e3c88662aaf0c7d09",
+    "copy_sha256": "c650e7df417aae63c3e41543e0d4569b461d3435c4a9e47e3c88662aaf0c7d09"
+   }
+  }
+ },
+ "ifn": {
+  "repository": "AI4DIS (private), branch uc1_spain_ifn_finetune",
+  "commit": "b9f8375783d8d4dbec2b342652dc638158070df1",
+  "files": {
+   "baseline_tabular_ifn.py": {
+    "original": "use_case_1_spain/finetune/baseline_tabular_ifn.py",
+    "original_sha256": "387fff44ec088eb4edf510cacbd1362754648b55391f191b24c755ae9d6262a3",
+    "copy_sha256": "387fff44ec088eb4edf510cacbd1362754648b55391f191b24c755ae9d6262a3"
+   },
+   "build_chip_cache.py": {
+    "original": "use_case_1_spain/finetune/build_chip_cache.py",
+    "original_sha256": "c30c810fb47cc94d1770232303d15fe1d5eca1eb6f13e9742328624c72f36da5",
+    "copy_sha256": "c30c810fb47cc94d1770232303d15fe1d5eca1eb6f13e9742328624c72f36da5"
+   },
+   "build_ifn_plot_labels.py": {
+    "original": "use_case_1_spain/finetune/build_ifn_plot_labels.py",
+    "original_sha256": "dcd7293d841b8f60c9d83bebe8889db7e1c0fe1919c0cec57b5f5e88d782215e",
+    "copy_sha256": "dcd7293d841b8f60c9d83bebe8889db7e1c0fe1919c0cec57b5f5e88d782215e"
+   },
+   "export_ifn_chips.py": {
+    "original": "use_case_1_spain/finetune/export_ifn_chips.py",
+    "original_sha256": "c64afda2e72622443e9a54e448b6e31375b1ebd7b7d723252c4482b13366fc96",
+    "copy_sha256": "4d714cdbbc7ed9b006ba3bb46a0fdcf62387d96cf7e5b1193728cba4b6ddbc81"
+   },
+   "fetch_cci_at_plots.py": {
+    "original": "use_case_1_spain/finetune/fetch_cci_at_plots.py",
+    "original_sha256": "9e1b685aca7034ffe5b01892cb606e71f98a125a42c7551e6fb3f3296a158a7d",
+    "copy_sha256": "190ed9db95728379cf43124bdbdb9c5c4b0a305b692e7e7ba9112c99538464be"
+   },
+   "finetune_ifn.py": {
+    "original": "use_case_1_spain/finetune/finetune_ifn.py",
+    "original_sha256": "01d080d9b2f70105b9579b7d598a9c6708ba8ba5fb335095c7e715ef2a4391ac",
+    "copy_sha256": "01d080d9b2f70105b9579b7d598a9c6708ba8ba5fb335095c7e715ef2a4391ac"
+   },
+   "ifn_common.py": {
+    "original": "use_case_1_spain/finetune/ifn_common.py",
+    "original_sha256": "f70d3adcf915a8bdb0a97fca4891d1d780d653bd6e97bbd04fe27797e15ba4d9",
+    "copy_sha256": "f70d3adcf915a8bdb0a97fca4891d1d780d653bd6e97bbd04fe27797e15ba4d9"
+   },
+   "run_all.sh": {
+    "original": "use_case_1_spain/finetune/run_all.sh",
+    "original_sha256": "ee10bbcf37c663ea448e922b8e2b7a7c8066d15d0a3412781212e5d333281fc0",
+    "copy_sha256": "ee10bbcf37c663ea448e922b8e2b7a7c8066d15d0a3412781212e5d333281fc0"
+   },
+   "run_baselines.sh": {
+    "original": "use_case_1_spain/finetune/run_baselines.sh",
+    "original_sha256": "fa0a10e58ad3f0430c6247c53575641ebc8bd48f75836e3469a5cdbe27f17b2d",
+    "copy_sha256": "fa0a10e58ad3f0430c6247c53575641ebc8bd48f75836e3469a5cdbe27f17b2d"
+   },
+   "run_overnight.sh": {
+    "original": "use_case_1_spain/finetune/run_overnight.sh",
+    "original_sha256": "7d0f1a2196c6775aeb895714795fe7e1ebcecad53305592c54ace7b273e44db0",
+    "copy_sha256": "7d0f1a2196c6775aeb895714795fe7e1ebcecad53305592c54ace7b273e44db0"
+   },
+   "run_weekend.sh": {
+    "original": "use_case_1_spain/finetune/run_weekend.sh",
+    "original_sha256": "ad2121e1eba6ded2ef93d88da7c50f35a2f942971705094c05f06e06b6fa0ad7",
+    "copy_sha256": "ad2121e1eba6ded2ef93d88da7c50f35a2f942971705094c05f06e06b6fa0ad7"
+   },
+   "zero_shot_ifn.py": {
+    "original": "use_case_1_spain/finetune/zero_shot_ifn.py",
+    "original_sha256": "2635fa554e1d53bb5276c59320ad5eef3b32c5211a82436fa562e1bae970bce1",
+    "copy_sha256": "2635fa554e1d53bb5276c59320ad5eef3b32c5211a82436fa562e1bae970bce1"
+   }
+  }
+ },
+ "note": "SHA-256 of each original file and of its copy in pipeline/. They differ only where the Earth Engine project was moved to EE_PROJECT."
+}
