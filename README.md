@@ -20,6 +20,8 @@ This repository accompanies the manuscript *Deploying Sentinel-1/2 Biomass Model
 
 **Publication status:** the manuscript is under review. It will be linked here, or its arXiv version, after acceptance.
 
+**Released asset:** [GitHub v1.0.0](https://github.com/alalbiol/spain-biomass-transfer-igarss/releases/tag/v1.0.0) corresponds to **[EOTDL dataset version 1](https://www.eotdl.com/datasets/spain-biomass-transfer-igarss)**. The exact source commit is `509b587be7ae71739b023cdbbc8943934468cbe7`. All 2,171 uploaded files were verified against this commit; see [the release record](provenance/releases/v1.0.0.json).
+
 | | Where |
 |---|---|
 | Code, documentation, reference results | this GitHub repository |

@@ -1,0 +1,14 @@
+{
+  "dataset_name": "spain-biomass-transfer-igarss",
+  "dataset_id": "6b0422a6daabc68934fe8591",
+  "eotdl_version": 1,
+  "github_commit": "509b587be7ae71739b023cdbbc8943934468cbe7",
+  "github_tag": "v1.0.0",
+  "manifest_sha256": "614352e36881cad63174ad9f5262e482d1fa8eeccc118f211e34d2d0e9f9064a",
+  "payload_files": 2171,
+  "eotdl_bytes": 5402112664,
+  "github_release_url": "https://github.com/alalbiol/spain-biomass-transfer-igarss/releases/tag/v1.0.0",
+  "eotdl_url": "https://www.eotdl.com/datasets/spain-biomass-transfer-igarss",
+  "verified_date": "2026-11-23",
+  "verification": "EOTDL catalog SHA-1 of every uploaded file matched the snapshot built from github_commit; the uploaded release-manifest.json is byte-identical. The client skipped the hidden .gitignore, which is listed in the manifest but not needed."
+}
